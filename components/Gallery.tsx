@@ -1,3 +1,6 @@
+"use client"
+
+
 import ImageCarousel from "./ImageCarousel"
 import WavePattern from "./WavePattern"
 import SmoothParallax from "./SmoothParallax"

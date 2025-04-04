@@ -1,3 +1,6 @@
+"use client"
+
+
 interface WavePatternProps {
   position: "top" | "bottom"
   color?: string

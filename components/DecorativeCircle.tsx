@@ -1,3 +1,5 @@
+"use client"
+
 interface DecorativeCircleProps {
     size: string
     top?: string

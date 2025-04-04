@@ -1,3 +1,6 @@
+"use client"
+
+
 import { Calendar, MapPin, Briefcase } from "lucide-react"
 import WavePattern from "./WavePattern"
 import SmoothParallax from "./SmoothParallax"

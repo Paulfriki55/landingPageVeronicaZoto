@@ -1,3 +1,6 @@
+"use client"
+
+
 import type React from "react"
 interface DecorativePatternProps {
   type: "dots" | "lines" | "waves"

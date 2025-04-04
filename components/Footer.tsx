@@ -1,3 +1,6 @@
+"use client"
+
+
 import Link from "next/link"
 import { Linkedin, Facebook, Instagram, Twitter } from "lucide-react"
 import DecorativePattern from "./DecorativePattern"

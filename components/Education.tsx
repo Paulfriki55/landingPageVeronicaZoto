@@ -1,3 +1,6 @@
+"use client"
+
+
 import { GraduationCap, Calendar } from "lucide-react"
 
 export default function Education() {

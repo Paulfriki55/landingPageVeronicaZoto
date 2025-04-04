@@ -1,3 +1,6 @@
+"use client"
+
+
 import { MessageSquare, Ear, Brain, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import WavePattern from "./WavePattern"
