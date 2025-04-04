@@ -2,6 +2,8 @@ import { MessageSquare, Ear, Brain, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import WavePattern from "./WavePattern"
 import SmoothParallax from "./SmoothParallax"
+import DecorativeCircle from "./DecorativeCircle"
+import DecorativePattern from "./DecorativePattern"
 
 export default function Services() {
   const services = [
@@ -27,24 +29,26 @@ export default function Services() {
 
   return (
     <section id="servicios" className="relative bg-white py-20 md:py-28">
-      <div className="decorative-circle w-[300px] h-[300px] left-0 top-1/4 -ml-36"></div>
-      <div className="decorative-circle w-[300px] h-[300px] right-0 bottom-1/4 -mr-36"></div>
+      {/* Elementos decorativos */}
+      <DecorativeCircle size="300px" left="-150px" top="25%" animate animationType="pulse" />
+      <DecorativeCircle size="300px" right="-150px" bottom="25%" animate animationType="pulse" delay={500} />
+      <DecorativePattern type="dots" bottom="10%" right="10%" width="200px" height="200px" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-16">
-          <SmoothParallax speed={0.05}>
-            <div className="inline-block bg-secondary px-3 py-1 rounded-full text-sm font-medium text-primary uppercase tracking-wider mb-4">
+          <SmoothParallax speed={0.05} animation="slide-down">
+            <div className="inline-block bg-secondary px-3 py-1 rounded-full text-sm font-medium text-primary uppercase tracking-wider mb-4 hover-lift">
               Servicios
             </div>
           </SmoothParallax>
 
-          <SmoothParallax speed={0.07}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 uppercase tracking-wide">
-              Servicios <span className="text-primary">profesionales</span>
+          <SmoothParallax speed={0.07} animation="fade">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 uppercase tracking-wide text-shadow">
+              Servicios <span className="text-gradient">profesionales</span>
             </h2>
           </SmoothParallax>
 
-          <SmoothParallax speed={0.09}>
+          <SmoothParallax speed={0.09} animation="slide-up">
             <p className="max-w-3xl mx-auto text-gray-600">
               Ofrezco atención integral y personalizada, adaptando mis técnicas terapéuticas a las necesidades
               específicas de cada paciente.
@@ -54,15 +58,21 @@ export default function Services() {
 
         <div className="grid md:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <SmoothParallax key={index} speed={0.05} delay={index * 200} className="h-full">
-              <div className="service-card group hover:shadow-md transition-all duration-500 h-full">
-                <div className="service-icon group-hover:bg-primary/10 transition-colors duration-500">
+            <SmoothParallax key={index} speed={0.05} delay={index * 200} animation="fade" className="h-full">
+              <div className="service-card group hover-lift hover-glow transition-all duration-500 h-full relative overflow-hidden">
+                {/* Fondo decorativo */}
+                <div className="absolute inset-0 bg-gradient-soft opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+                <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
+
+                <div className="service-icon group-hover:bg-primary/10 group-hover:scale-110 transition-all duration-500">
                   {service.icon}
                 </div>
-                <h3 className="service-title">{service.title}</h3>
+                <h3 className="service-title group-hover:text-primary transition-colors duration-300">
+                  {service.title}
+                </h3>
                 <p className="service-description">{service.description}</p>
-                <Link href={service.link} className="service-link">
-                  Más información <ArrowRight size={16} />
+                <Link href={service.link} className="service-link group-hover:text-primary-dark">
+                  Más información <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
             </SmoothParallax>

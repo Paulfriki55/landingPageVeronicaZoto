@@ -2,6 +2,8 @@ import { Check, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import WavePattern from "./WavePattern"
 import SmoothParallax from "./SmoothParallax"
+import DecorativeCircle from "./DecorativeCircle"
+import DecorativePattern from "./DecorativePattern"
 
 export default function Plans() {
   const plans = [
@@ -46,23 +48,26 @@ export default function Plans() {
 
   return (
     <section id="especialidades" className="relative bg-white py-20 md:py-28">
-      <div className="decorative-circle w-[300px] h-[300px] left-0 bottom-0 -ml-36"></div>
+      {/* Elementos decorativos */}
+      <DecorativeCircle size="300px" left="-150px" bottom="-50px" animate animationType="float" />
+      <DecorativePattern type="dots" top="10%" right="5%" width="200px" height="200px" />
+      <DecorativePattern type="lines" bottom="20%" left="10%" width="150px" height="150px" rotate={30} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-16">
-          <SmoothParallax speed={0.05}>
-            <div className="inline-block bg-secondary px-3 py-1 rounded-full text-sm font-medium text-primary uppercase tracking-wider mb-4">
+          <SmoothParallax speed={0.05} animation="slide-down">
+            <div className="inline-block bg-secondary px-3 py-1 rounded-full text-sm font-medium text-primary uppercase tracking-wider mb-4 hover-lift">
               Planes
             </div>
           </SmoothParallax>
 
-          <SmoothParallax speed={0.07}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 uppercase tracking-wide">
-              Planes y <span className="text-primary">Servicios</span>
+          <SmoothParallax speed={0.07} animation="fade">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 uppercase tracking-wide text-shadow">
+              Planes y <span className="text-gradient">Servicios</span>
             </h2>
           </SmoothParallax>
 
-          <SmoothParallax speed={0.09}>
+          <SmoothParallax speed={0.09} animation="slide-up">
             <p className="max-w-3xl mx-auto text-gray-600">
               Ofrezco diferentes planes adaptados a las necesidades específicas de cada paciente, con el objetivo de
               proporcionar una atención personalizada y efectiva.
@@ -72,40 +77,57 @@ export default function Plans() {
 
         <div className="grid md:grid-cols-3 gap-8">
           {plans.map((plan, index) => (
-            <SmoothParallax key={index} speed={0.05} delay={index * 200} className="h-full">
+            <SmoothParallax key={index} speed={0.05} delay={index * 200} animation="fade" className="h-full">
               <div
                 className={`card flex flex-col h-full ${
-                  plan.highlighted ? "border-2 border-primary relative shadow-lg" : "border border-gray-200"
-                } hover:shadow-md transition-all duration-500`}
+                  plan.highlighted
+                    ? "border-2 border-primary relative shadow-lg bg-gradient-soft bg-opacity-30"
+                    : "border border-gray-200"
+                } hover-lift hover-glow transition-all duration-500 group overflow-hidden`}
               >
+                {/* Fondo decorativo */}
+                <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
+
                 {plan.highlighted && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-medium uppercase tracking-wider">
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-medium uppercase tracking-wider hover-scale">
                     Más Popular
                   </div>
                 )}
-                <div className="text-center mb-6">
-                  <h3 className="text-xl font-bold mb-2 uppercase tracking-wide">{plan.title}</h3>
-                  <div className="text-3xl font-bold text-primary mb-2">{plan.price}</div>
+                <div className="text-center mb-6 relative z-10">
+                  <h3 className="text-xl font-bold mb-2 uppercase tracking-wide group-hover:text-primary transition-colors duration-300">
+                    {plan.title}
+                  </h3>
+                  <div className="text-3xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300">
+                    {plan.price}
+                  </div>
                   <p className="text-gray-600">{plan.description}</p>
                 </div>
-                <ul className="space-y-3 mb-8 flex-grow">
+                <ul className="space-y-3 mb-8 flex-grow relative z-10">
                   {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <Check size={20} className="text-primary flex-shrink-0 mt-0.5" />
+                    <li
+                      key={i}
+                      className="flex items-start gap-2 group/item hover:translate-x-1 transition-transform duration-300"
+                    >
+                      <div className="bg-primary/10 rounded-full p-1 group-hover/item:bg-primary/20 transition-colors duration-300">
+                        <Check size={16} className="text-primary" />
+                      </div>
                       <span className="text-gray-700">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <Link
                   href="#contacto"
-                  className={`text-center py-3 px-6 rounded-md font-medium transition-colors flex items-center justify-center gap-2 uppercase tracking-wider text-sm ${
+                  className={`text-center py-3 px-6 rounded-md font-medium transition-all duration-300 flex items-center justify-center gap-2 uppercase tracking-wider text-sm relative z-10 ${
                     plan.highlighted
                       ? "bg-primary text-white hover:bg-accent"
                       : "bg-secondary text-primary hover:bg-secondary/70"
-                  }`}
+                  } group-hover:shadow-md`}
                 >
                   Solicitar Plan
-                  {plan.highlighted && <ArrowRight size={16} />}
+                  <ArrowRight
+                    size={16}
+                    className={`transition-transform duration-300 ${plan.highlighted ? "group-hover:translate-x-1" : ""}`}
+                  />
                 </Link>
               </div>
             </SmoothParallax>
