@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Star } from "lucide-react"
 import WavePattern from "./WavePattern"
 import ParallaxSection from "./ParallaxSection"
@@ -32,17 +32,19 @@ export default function Testimonials() {
     },
   ]
 
-  const handleNextTestimonial = () => {
+  // Envolvemos handleNextTestimonial en useCallback
+  const handleNextTestimonial = useCallback(() => {
     if (isTransitioning) return
 
     setIsTransitioning(true)
-    setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))
+    setActiveIndex((prev) =>
+      prev === testimonials.length - 1 ? 0 : prev + 1
+    )
 
     setTimeout(() => {
       setIsTransitioning(false)
     }, 600)
-  }
-
+  }, [isTransitioning, testimonials.length])
 
   // Auto-rotate testimonials
   useEffect(() => {
@@ -51,16 +53,17 @@ export default function Testimonials() {
         handleNextTestimonial()
       }
     }, 8000)
-  
+
     return () => clearInterval(interval)
-  }, [activeIndex, isTransitioning, handleNextTestimonial]) // Añadido handleNextTestimonial
-  
-  
+  }, [isTransitioning, handleNextTestimonial])
+
   const handlePrevTestimonial = () => {
     if (isTransitioning) return
 
     setIsTransitioning(true)
-    setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))
+    setActiveIndex((prev) =>
+      prev === 0 ? testimonials.length - 1 : prev - 1
+    )
 
     setTimeout(() => {
       setIsTransitioning(false)
@@ -134,8 +137,8 @@ export default function Testimonials() {
                     index === activeIndex
                       ? "opacity-100 translate-x-0"
                       : index < activeIndex
-                        ? "opacity-0 -translate-x-full"
-                        : "opacity-0 translate-x-full"
+                      ? "opacity-0 -translate-x-full"
+                      : "opacity-0 translate-x-full"
                   }`}
                 >
                   {`"${testimonial.quote}"`}
@@ -218,4 +221,3 @@ export default function Testimonials() {
     </ParallaxSection>
   )
 }
-

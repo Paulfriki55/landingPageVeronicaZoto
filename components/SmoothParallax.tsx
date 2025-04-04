@@ -54,17 +54,19 @@ export default function SmoothParallax({
       },
       { threshold },
     )
-
-    if (elementRef.current) {
-      observer.observe(elementRef.current)
+  
+    const element = elementRef.current // Copiar la referencia
+    if (element) {
+      observer.observe(element)
     }
-
+  
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current)
+      if (element) {
+        observer.unobserve(element)
       }
     }
   }, [threshold, hasAnimated])
+  
 
   useEffect(() => {
     const element = elementRef.current; // Guardar la referencia antes de usarla
